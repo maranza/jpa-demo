@@ -1,15 +1,27 @@
 package org.coresystems.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.coresystems.models.Programmer;
+import org.coresystems.services.ProgrammerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/developer")
+@RequestMapping("/developers")
 public class ProgrammerController {
-	
-	@GetMapping("/hello")
-	public String get(){
-		return "hello world";
+
+	@Autowired
+	private ProgrammerService programmerService;
+
+	@GetMapping("/all")
+	public List<Programmer> getAll(){
+		return programmerService.getAllProgrammers();
+	}
+
+	@PostMapping("/add")
+	public String addProgrammer(@RequestBody Programmer programmer){
+		programmerService.addProgrammer(programmer);
+		return "data saved!";
 	}
 }
