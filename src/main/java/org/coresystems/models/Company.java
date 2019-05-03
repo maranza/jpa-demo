@@ -1,35 +1,28 @@
 package org.coresystems.models;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.DynamicUpdate;
-
 import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="companies")
-@DynamicUpdate
 @Data
 public class Company {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	@Column(name="company_id")
 	private Integer id;
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
+
+//	@OneToMany(cascade=CascadeType.ALL)
+//	@JoinColumn(name="company_id", referencedColumnName="company_id")
+//	List<Programmer> programmers;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="company_id", referencedColumnName="company_id")
-	List<Programmer> programmers;
+//	@OneToMany
+//	@JoinColumn(name="company_id", referencedColumnName="company_id",
+//	insertable=false, updatable=false)
+//	List<Programmer> programmers;
 }
